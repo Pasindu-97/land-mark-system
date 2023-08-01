@@ -5,10 +5,11 @@ from django.views.generic import RedirectView
 from drf_spectacular import views as spec_views
 from rest_framework.routers import DefaultRouter
 
+import apps.clients.views as client_views
 from config.admin import custom_admin_site
 
 spectacular_api_view = spec_views.SpectacularAPIView.as_view()
-spectacular_api_docs_view = spec_views.SpectacularRedocView.as_view(url_name="schema")
+spectacular_api_docs_view = spec_views.SpectacularSwaggerView.as_view(url_name="schema")
 
 urlpatterns = [
     path("api-auth/", include("apps.api_auth.urls")),
@@ -17,6 +18,7 @@ urlpatterns = [
 ]
 
 router = DefaultRouter()
+router.register(r"client", client_views.ClientViewSet)
 # TODO: Register API view sets here
 
 urlpatterns += [
