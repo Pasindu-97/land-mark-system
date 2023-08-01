@@ -87,7 +87,12 @@ THIRD_PARTY_APPS = [
     "constance.backends.database",
     "anymail",
 ]
-LOCAL_APPS = ["apps.api_auth.apps.ApiAuthConfig", "apps.users.apps.UsersConfig", "apps.clients.apps.ClientsConfig"]
+LOCAL_APPS = [
+    "apps.api_auth.apps.ApiAuthConfig",
+    "apps.users.apps.UsersConfig",
+    "apps.clients.apps.ClientsConfig",
+    "apps.loans.apps.LoansConfig",
+]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_ADMIN_THEME_APPS + DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -246,6 +251,17 @@ ADMIN_MODELS = [
     ["Authentication/Authorization", ("Group", "User", "TokenProxy")],
     ["Site Settings", ("Theme", "Site", "Config")],
     ["Client", ("Client",)],
+    [
+        "Loan",
+        (
+            "Loan",
+            "LoanFile",
+            "LoanImage",
+            "Payment",
+            "Group",
+            "ReleaseDate",
+        ),
+    ],
 ]
 
 # ---------------------------------------------------------- Logging ---------------------------------------------------
