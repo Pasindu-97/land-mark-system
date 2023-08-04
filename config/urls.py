@@ -6,6 +6,7 @@ from drf_spectacular import views as spec_views
 from rest_framework.routers import DefaultRouter
 
 import apps.clients.views as client_views
+import apps.loans.views as loan_views
 from config.admin import custom_admin_site
 
 spectacular_api_view = spec_views.SpectacularAPIView.as_view()
@@ -18,7 +19,12 @@ urlpatterns = [
 ]
 
 router = DefaultRouter()
-router.register(r"client", client_views.ClientViewSet)
+router.register(r"clients", client_views.ClientViewSet)
+router.register(r"loans", loan_views.LoanViewSet)
+router.register(r"loan-files", loan_views.LoanFileViewSet)
+router.register(r"loan-images", loan_views.LoanImageViewSet)
+router.register(r"payments", loan_views.PaymentViewSet)
+router.register(r"release-dates", loan_views.ReleaseDateViewSet)
 # TODO: Register API view sets here
 
 urlpatterns += [

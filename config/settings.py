@@ -249,7 +249,6 @@ ADMINS = [("""ixdlabs""", "developer@ixdlabs.lk")]
 MANAGERS = ADMINS
 ADMIN_MODELS = [
     ["Authentication/Authorization", ("Group", "User", "TokenProxy")],
-    ["Site Settings", ("Theme", "Site", "Config")],
     ["Client", ("Client",)],
     [
         "Loan",
@@ -262,6 +261,7 @@ ADMIN_MODELS = [
             "ReleaseDate",
         ),
     ],
+    ["Site Settings", ("Theme", "Site", "Config")],
 ]
 
 # ---------------------------------------------------------- Logging ---------------------------------------------------
