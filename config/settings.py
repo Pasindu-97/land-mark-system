@@ -307,13 +307,12 @@ OLD_PASSWORD_FIELD_ENABLED = True
 # ---------------------------------------------------------- DRF Spectacular OpenAPI Documentation ---------------------
 # TODO: Change project details.
 SPECTACULAR_SETTINGS = {
-    "TITLE": "example-api",
-    "DESCRIPTION": "Example Backend API",
+    "TITLE": "LandMark-API",
+    "DESCRIPTION": "Land Mark Backend API",
     "VERSION": "0.0.1",
     "COMPONENT_SPLIT_REQUEST": True,
     "SCHEMA_PATH_PREFIX": r"\/(api|admin\-api)\/v[0-9]",
     "SORT_OPERATION_PARAMETERS": True,
-    "CONTACT": {"name": "kdsuneraavinash", "email": "sunera@ixdlabs.com"},
     "SERVE_PERMISSIONS": ["rest_framework.permissions.IsAdminUser"],
     "SERVE_AUTHENTICATION": ["rest_framework.authentication.SessionAuthentication"],
 }
