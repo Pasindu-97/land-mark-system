@@ -39,7 +39,7 @@ class Loan(TimeStampedModel, models.Model):
     payment_period = models.IntegerField(_("Payment Period"))
 
     amount = models.DecimalField(_("Amount"), max_digits=15, decimal_places=2)
-    interest_rate = models.DecimalField(_("Interest Rate"), max_digits=3, decimal_places=2)
+    interest_rate = models.DecimalField(_("Interest Rate"), max_digits=4, decimal_places=2)
     arrears = models.DecimalField(_("Arrears"), max_digits=15, decimal_places=2, null=True, blank=True)
     status = models.CharField(_("Status"), max_length=50, choices=Statuses.choices, default=Statuses.PENDING)
 
