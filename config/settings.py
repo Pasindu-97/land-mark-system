@@ -90,6 +90,8 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     "apps.api_auth.apps.ApiAuthConfig",
     "apps.users.apps.UsersConfig",
+    "apps.clients.apps.ClientsConfig",
+    "apps.loans.apps.LoansConfig",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_ADMIN_THEME_APPS + DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -247,6 +249,18 @@ ADMINS = [("""ixdlabs""", "developer@ixdlabs.lk")]
 MANAGERS = ADMINS
 ADMIN_MODELS = [
     ["Authentication/Authorization", ("Group", "User", "TokenProxy")],
+    ["Client", ("Client",)],
+    [
+        "Loan",
+        (
+            "Loan",
+            "LoanFile",
+            "LoanImage",
+            "Payment",
+            "Group",
+            "ReleaseDate",
+        ),
+    ],
     ["Site Settings", ("Theme", "Site", "Config")],
 ]
 
