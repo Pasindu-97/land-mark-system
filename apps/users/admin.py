@@ -9,4 +9,4 @@ User = get_user_model()
 
 @admin.register(User, site=custom_admin_site)
 class UserAdmin(BaseUserAdmin):
-    pass
+    list_display = ("id", "username", "email", "first_name", "last_name", "is_staff")

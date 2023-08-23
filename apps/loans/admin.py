@@ -1,11 +1,20 @@
 from django.contrib import admin
 
-from apps.loans.models import Loan, LoanFile, LoanImage, Payment, ReleaseDate
+from apps.loans.models import Loan, LoanFile, LoanGroup, LoanImage, Payment, ReleaseDate
 from config.admin import custom_admin_site
 
 
 @admin.register(Loan, site=custom_admin_site)
 class LoanAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(LoanGroup, site=custom_admin_site)
+class LoanGroupAdmin(admin.ModelAdmin):
+    list_display = (
+        "id",
+        "__str__",
+    )
     pass
 
 
