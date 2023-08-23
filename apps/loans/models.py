@@ -6,7 +6,7 @@ from model_utils.models import TimeStampedModel
 from apps.clients.models import Client
 
 
-class Group(TimeStampedModel, models.Model):
+class LoanGroup(TimeStampedModel, models.Model):
     investors = models.ManyToManyField(
         settings.AUTH_USER_MODEL, related_name="investor_groups", verbose_name=_("Investors")
     )
@@ -14,8 +14,8 @@ class Group(TimeStampedModel, models.Model):
 
     class Meta:
         ordering = ["id"]
-        verbose_name = _("Group")
-        verbose_name_plural = _("Groups")
+        verbose_name = _("Loan Group")
+        verbose_name_plural = _("Loan Groups")
 
     def __str__(self):
         return f"LM_GROUP{self.id}"
@@ -31,16 +31,18 @@ class Loan(TimeStampedModel, models.Model):
 
     customer = models.ForeignKey(Client, models.CASCADE, related_name="loans", verbose_name=_("Customer"))
     guarantees = models.ManyToManyField(Client, verbose_name=_("Guarantees"))
-    group = models.ForeignKey(
-        Group, models.CASCADE, related_name="loans", verbose_name=_("Group"), null=True, blank=True
+    loan_group = models.ForeignKey(
+        LoanGroup, models.CASCADE, related_name="loans", verbose_name=_("Group"), null=True, blank=True
     )
 
     payment_start_date = models.DateTimeField(_("Payment Start Date"))
     payment_period = models.IntegerField(_("Payment Period"))
+    installment = models.DecimalField(_("Installment"), max_digits=15, decimal_places=2)
 
     amount = models.DecimalField(_("Amount"), max_digits=15, decimal_places=2)
+    payable_amount = models.DecimalField(_("Amount"), max_digits=15, decimal_places=2, default=0)
     interest_rate = models.DecimalField(_("Interest Rate"), max_digits=4, decimal_places=2)
-    arrears = models.DecimalField(_("Arrears"), max_digits=15, decimal_places=2, null=True, blank=True)
+    arrears = models.DecimalField(_("Arrears"), max_digits=15, decimal_places=2, default=0)
     status = models.CharField(_("Status"), max_length=50, choices=Statuses.choices, default=Statuses.PENDING)
 
     class Meta:

@@ -254,10 +254,10 @@ ADMIN_MODELS = [
         "Loan",
         (
             "Loan",
+            "LoanGroup",
             "LoanFile",
             "LoanImage",
             "Payment",
-            "Group",
             "ReleaseDate",
         ),
     ],
