@@ -25,6 +25,7 @@ router.register(r"loan-files", loan_views.LoanFileViewSet)
 router.register(r"loan-images", loan_views.LoanImageViewSet)
 router.register(r"payments", loan_views.PaymentViewSet)
 router.register(r"release-dates", loan_views.ReleaseDateViewSet)
+router.register(r"loan-groups", loan_views.LoanGroupViewSet)
 # TODO: Register API view sets here
 
 urlpatterns += [
