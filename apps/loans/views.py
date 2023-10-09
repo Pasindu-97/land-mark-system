@@ -5,8 +5,9 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
-from apps.loans.models import Loan, LoanFile, LoanImage, Payment, ReleaseDate
+from apps.loans.models import Loan, LoanFile, LoanGroup, LoanImage, Payment, ReleaseDate
 from apps.loans.serializers import (
+    GroupSerializer,
     LoanFileSerializer,
     LoanImageSerializer,
     LoanSerializer,
@@ -71,7 +72,13 @@ class PaymentViewSet(ModelViewSet):
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 
-@extend_schema(tags=["Release-date-api"])
+@extend_schema(tags=["release-date-api"])
 class ReleaseDateViewSet(ModelViewSet):
     queryset = ReleaseDate.objects.all()
     serializer_class = ReleaseDateSerializer
+
+
+@extend_schema(tags=["loan-group-api"])
+class LoanGroupViewSet(ModelViewSet):
+    queryset = LoanGroup.objects.all()
+    serializer_class = GroupSerializer
