@@ -1,6 +1,14 @@
 from rest_framework import serializers
 
-from apps.loans.models import Loan, LoanFile, LoanGroup, LoanImage, Payment, ReleaseDate
+from apps.loans.models import (
+    Investor,
+    Loan,
+    LoanFile,
+    LoanGroup,
+    LoanImage,
+    Payment,
+    ReleaseDate,
+)
 
 
 class GroupSerializer(serializers.ModelSerializer):
@@ -41,5 +49,12 @@ class PaymentSerializer(serializers.ModelSerializer):
 class ReleaseDateSerializer(serializers.ModelSerializer):
     class Meta:
         model = ReleaseDate
+        fields = "__all__"
+        read_only_fields = ("id", "created", "modified", "created_by")
+
+
+class InvestorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Investor
         fields = "__all__"
         read_only_fields = ("id", "created", "modified", "created_by")

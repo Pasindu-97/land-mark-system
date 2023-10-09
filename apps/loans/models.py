@@ -6,10 +6,17 @@ from model_utils.models import TimeStampedModel
 from apps.clients.models import Client
 
 
+class Investor(TimeStampedModel, models.Model):
+    name = models.CharField(_("Name"), max_length=127)
+
+    class Meta:
+        ordering = ["id"]
+        verbose_name = _("Investor")
+        verbose_name_plural = _("Investors")
+
+
 class LoanGroup(TimeStampedModel, models.Model):
-    investors = models.ManyToManyField(
-        settings.AUTH_USER_MODEL, related_name="investor_groups", verbose_name=_("Investors")
-    )
+    investors = models.ManyToManyField(Investor, related_name="loan_groups", verbose_name=_("Investors"), blank=True)
     name = models.CharField(_("Name"), max_length=127)
 
     class Meta:

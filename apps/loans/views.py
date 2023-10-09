@@ -5,9 +5,18 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
-from apps.loans.models import Loan, LoanFile, LoanGroup, LoanImage, Payment, ReleaseDate
+from apps.loans.models import (
+    Investor,
+    Loan,
+    LoanFile,
+    LoanGroup,
+    LoanImage,
+    Payment,
+    ReleaseDate,
+)
 from apps.loans.serializers import (
     GroupSerializer,
+    InvestorSerializer,
     LoanFileSerializer,
     LoanImageSerializer,
     LoanSerializer,
@@ -82,3 +91,9 @@ class ReleaseDateViewSet(ModelViewSet):
 class LoanGroupViewSet(ModelViewSet):
     queryset = LoanGroup.objects.all()
     serializer_class = GroupSerializer
+
+
+@extend_schema(tags=["investor-api"])
+class InvestorViewSet(ModelViewSet):
+    queryset = Investor.objects.all()
+    serializer_class = InvestorSerializer
