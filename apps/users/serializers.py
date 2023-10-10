@@ -13,3 +13,9 @@ class UserSerializer(serializers.ModelSerializer):
             "last_name",
         )
         read_only_fields = ("username",)
+
+
+class UserViewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = "__all__"

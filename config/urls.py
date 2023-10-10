@@ -7,6 +7,7 @@ from rest_framework.routers import DefaultRouter
 
 import apps.clients.views as client_views
 import apps.loans.views as loan_views
+import apps.users.views as user_views
 from config.admin import custom_admin_site
 
 spectacular_api_view = spec_views.SpectacularAPIView.as_view()
@@ -27,6 +28,7 @@ router.register(r"payments", loan_views.PaymentViewSet)
 router.register(r"release-dates", loan_views.ReleaseDateViewSet)
 router.register(r"loan-groups", loan_views.LoanGroupViewSet)
 router.register(r"investors", loan_views.InvestorViewSet)
+router.register(r"user", user_views.UserViewSet)
 # TODO: Register API view sets here
 
 urlpatterns += [

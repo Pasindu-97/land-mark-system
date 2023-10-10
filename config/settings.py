@@ -253,9 +253,9 @@ ADMIN_MODELS = [
     [
         "Loan",
         (
-            "Loan",
             "Investor",
             "LoanGroup",
+            "Loan",
             "LoanFile",
             "LoanImage",
             "Payment",
