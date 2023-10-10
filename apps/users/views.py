@@ -1,10 +1,13 @@
-from rest_framework.mixins import ListModelMixin, RetrieveModelMixin
-from rest_framework.viewsets import GenericViewSet
+from rest_framework.viewsets import ModelViewSet
 
 from apps.users.models import User
-from apps.users.serializers import UserViewSerializer
+from apps.users.serializers import UserCreateSerializer, UserViewSerializer
 
 
-class UserViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
+class UserViewSet(ModelViewSet):
     queryset = User.objects.all()
-    serializer_class = UserViewSerializer
+
+    def get_serializer_class(self):
+        if self.action == "list" or self.action == "retrieve":
+            return UserViewSerializer
+        return UserCreateSerializer

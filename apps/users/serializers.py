@@ -18,4 +18,17 @@ class UserSerializer(serializers.ModelSerializer):
 class UserViewSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
+        fields = (
+            "id",
+            "username",
+            "first_name",
+            "last_name",
+            "nic",
+            "email",
+        )
+
+
+class UserCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
         fields = "__all__"
