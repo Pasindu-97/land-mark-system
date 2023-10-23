@@ -1,5 +1,6 @@
 from rest_framework import serializers
 
+from apps.clients.serializers import ClientSerializer
 from apps.loans.models import (
     Investor,
     Loan,
@@ -19,9 +20,43 @@ class GroupSerializer(serializers.ModelSerializer):
 
 
 class LoanSerializer(serializers.ModelSerializer):
+    customer = ClientSerializer()
+    guarantees = ClientSerializer(many=True)
+
     class Meta:
         model = Loan
-        fields = "__all__"
+        fields = (
+            "customer",
+            "guarantees",
+            "loan_group",
+            "payment_start_date",
+            "payment_period",
+            "installment",
+            "amount",
+            "payable_amount",
+            "interest_rate",
+            "arrears",
+            "status",
+        )
+        read_only_fields = ("id", "installment", "payable_amount", "arrears", "created", "modified", "created_by")
+
+
+class LoanCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Loan
+        fields = (
+            "customer",
+            "guarantees",
+            "loan_group",
+            "payment_start_date",
+            "payment_period",
+            "installment",
+            "amount",
+            "payable_amount",
+            "interest_rate",
+            "arrears",
+            "status",
+        )
         read_only_fields = ("id", "installment", "payable_amount", "arrears", "created", "modified", "created_by")
 
 

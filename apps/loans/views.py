@@ -17,6 +17,7 @@ from apps.loans.models import (
 from apps.loans.serializers import (
     GroupSerializer,
     InvestorSerializer,
+    LoanCreateSerializer,
     LoanFileSerializer,
     LoanImageSerializer,
     LoanSerializer,
@@ -28,7 +29,11 @@ from apps.loans.serializers import (
 @extend_schema(tags=["loan-api"])
 class LoanViewSet(ModelViewSet):
     queryset = Loan.objects.all()
-    serializer_class = LoanSerializer
+
+    def get_serializer_class(self):
+        if self.action == "list" or self.action == "retrieve":
+            return LoanSerializer
+        return LoanCreateSerializer
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
