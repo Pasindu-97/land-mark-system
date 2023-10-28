@@ -1,11 +1,13 @@
 import decimal
+from datetime import date
 
-from drf_spectacular.utils import extend_schema
+from drf_spectacular.utils import OpenApiParameter, extend_schema
 from rest_framework import status
 from rest_framework.parsers import MultiPartParser
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
+from apps.loans.filter import LoanFilter
 from apps.loans.models import (
     Investor,
     Loan,
@@ -30,6 +32,7 @@ from apps.loans.serializers import (
 @extend_schema(tags=["loan-api"])
 class LoanViewSet(ModelViewSet):
     queryset = Loan.objects.all()
+    filterset_class = LoanFilter
 
     def get_serializer_class(self):
         if self.action == "list" or self.action == "retrieve":
@@ -51,6 +54,31 @@ class LoanViewSet(ModelViewSet):
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
+    @extend_schema(
+        # extra parameters added to the schema
+        parameters=[
+            OpenApiParameter(name="start_date", required=False, type=date),
+            OpenApiParameter(name="end_date", required=False, type=date),
+        ]
+    )
+    def list(self, request, *args, **kwargs):
+        start_date = request.query_params.get("start_date")
+        end_date = request.query_params.get("end_date")
+        print(start_date, end_date)
+
+        if start_date is not None and end_date is not None:
+            queryset = self.queryset.filter(created__range=(start_date, end_date))
+        else:
+            queryset = self.filter_queryset(self.get_queryset())
+
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
 
 
 @extend_schema(tags=["loan-file-api"])

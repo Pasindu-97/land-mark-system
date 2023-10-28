@@ -26,6 +26,7 @@ class LoanSerializer(serializers.ModelSerializer):
     class Meta:
         model = Loan
         fields = (
+            "id",
             "customer",
             "guarantees",
             "loan_group",
