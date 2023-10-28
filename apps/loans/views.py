@@ -2,6 +2,7 @@ import decimal
 
 from drf_spectacular.utils import extend_schema
 from rest_framework import status
+from rest_framework.parsers import MultiPartParser
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
@@ -55,13 +56,14 @@ class LoanViewSet(ModelViewSet):
 @extend_schema(tags=["loan-file-api"])
 class LoanFileViewSet(ModelViewSet):
     queryset = LoanFile.objects.all()
-    serializer_class = LoanFileSerializer
+    serializer_class = LoanFileSerializer(many=True)
 
 
 @extend_schema(tags=["loan-image-api"])
 class LoanImageViewSet(ModelViewSet):
     queryset = LoanImage.objects.all()
-    serializer_class = LoanImageSerializer
+    serializer_class = LoanImageSerializer(many=True)
+    parser_classes = (MultiPartParser,)
 
 
 @extend_schema(tags=["payment-api"])
