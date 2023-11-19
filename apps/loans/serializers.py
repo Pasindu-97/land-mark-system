@@ -82,6 +82,15 @@ class PaymentSerializer(serializers.ModelSerializer):
         read_only_fields = ("id", "created", "modified", "created_by")
 
 
+class BillSerializer(serializers.Serializer):
+    customer = ClientSerializer()
+    current_payment = serializers.DecimalField(max_digits=15, decimal_places=2)
+    installment = serializers.DecimalField(max_digits=15, decimal_places=2)
+    amount = serializers.DecimalField(max_digits=15, decimal_places=2)
+    payable_amount = serializers.DecimalField(max_digits=15, decimal_places=2)
+    arrears = serializers.DecimalField(max_digits=15, decimal_places=2)
+
+
 class ReleaseDateSerializer(serializers.ModelSerializer):
     class Meta:
         model = ReleaseDate
@@ -94,3 +103,9 @@ class InvestorSerializer(serializers.ModelSerializer):
         model = Investor
         fields = "__all__"
         read_only_fields = ("id", "created", "modified", "created_by")
+
+
+class DashboardSerializer(serializers.Serializer):
+    total_cash_out = serializers.DecimalField(max_digits=10, decimal_places=2)
+    total_cash_in = serializers.DecimalField(max_digits=10, decimal_places=2)
+    total_profit = serializers.DecimalField(max_digits=10, decimal_places=2)

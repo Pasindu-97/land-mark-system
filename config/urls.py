@@ -8,6 +8,7 @@ from rest_framework.routers import DefaultRouter
 import apps.clients.views as client_views
 import apps.loans.views as loan_views
 import apps.users.views as user_views
+from apps.loans.views import DashboardDataRetrieveView
 from config.admin import custom_admin_site
 
 spectacular_api_view = spec_views.SpectacularAPIView.as_view()
@@ -42,6 +43,7 @@ urlpatterns += [
     # TODO: Configure admin site endpoint here
     path("custom-admin/", custom_admin_site.urls),
     path("", RedirectView.as_view(pattern_name="custom_admin:index")),
+    path("dashboard/<str:start_date>/<str:end_date>/", DashboardDataRetrieveView.as_view(), name="dashboard-retrieve"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
