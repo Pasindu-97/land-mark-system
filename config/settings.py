@@ -48,9 +48,30 @@ LANGUAGES = [
 
 # ---------------------------------------------------------- Databases -------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
+# DATABASES = {
+#     "default": env.db("DATABASE_URL", default="sqlite:///sqlite.db"),
+# }
+
 DATABASES = {
-    "default": env.db("DATABASE_URL", default="sqlite:///sqlite.db"),
+
+    'default': {
+
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+
+        'NAME': 'landmark',
+
+        'USER': 'postgres',
+
+        'PASSWORD': 'password',
+
+        'HOST': 'localhost',
+
+        'PORT': '5432',
+
+    }
+
 }
+
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
 # https://docs.djangoproject.com/en/3.2/releases/3.2/#customizing-type-of-auto-created-primary-keys
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
